@@ -12,6 +12,8 @@ function(           data.prep.obj = NULL,
                       Sigf.ipop = 5,
                       Bound.ipop = 10,
                       verbose = FALSE,
+                      lambda = 0.01,
+                      scale = FALSE,
                        ...
                       )
   { 
@@ -66,13 +68,16 @@ function(           data.prep.obj = NULL,
     scaled.matrix <-
       t(t(big.dataframe) %*% ( 1/(divisor) *
                               diag(rep(dim(big.dataframe)[1], 1)) ))
-
-    X0.scaled <- scaled.matrix[,c(1:(dim(X0)[2]))]
-    if(is.vector(X0.scaled)==TRUE)
-     {X0.scaled <- t(as.matrix(X0.scaled))}
-    X1.scaled <- scaled.matrix[,dim(scaled.matrix)[2]]
-
-
+    if (scaled == TRUE) {
+        X0.scaled <- scaled.matrix[,c(1:(dim(X0)[2]))]
+        if(is.vector(X0.scaled)==TRUE)
+           {X0.scaled <- t(as.matrix(X0.scaled))}
+        X1.scaled <- scaled.matrix[,dim(scaled.matrix)[2]]
+     }
+    if (scaled == FALSE) {
+      X0.scaled <- X0
+      X1.scaled <- X1
+     }
     # check if custom v weights are supplied or
     # if only on predictor is specified,
     # we jump to quadratic optimization over W weights
@@ -133,7 +138,8 @@ function(           data.prep.obj = NULL,
                              quadopt = quadopt,
                              margin.ipop = Margin.ipop,
                              sigf.ipop = Sigf.ipop,
-                             bound.ipop = Bound.ipop
+                             bound.ipop = Bound.ipop,
+                             lambda = lambda
                             )
       # get minimum
       if(verbose==TRUE){print(rgV.optim.1)}
@@ -249,7 +255,7 @@ function(           data.prep.obj = NULL,
     names(solution.v) <- rownames(X0)
 
     loss.w <- t(X1.scaled - X0.scaled %*% solution.w) %*%
-      V %*% (X1.scaled - X0.scaled %*% solution.w)
+      V %*% (X1.scaled - X0.scaled %*% solution.w) 
 
     loss.v <-
       t(Z1 - Z0 %*% as.matrix(solution.w)) %*%
