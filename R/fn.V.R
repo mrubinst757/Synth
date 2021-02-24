@@ -52,7 +52,7 @@ function(
             
     # compute losses
     loss.w <- as.numeric(t(X1.scaled - X0.scaled %*% solution.w) %*%
-      (V) %*% (X1.scaled - X0.scaled %*% solution.w) + lambda*(t(solution.w) %*% solution.w)
+      (V) %*% (X1.scaled - X0.scaled %*% solution.w) + lambda*(t(solution.w) %*% solution.w))
 
     loss.v <- as.numeric(t(Z1 - Z0 %*% solution.w) %*%
       ( Z1 - Z0 %*% solution.w ))
