@@ -14,6 +14,7 @@ function(           data.prep.obj = NULL,
                       verbose = FALSE,
                       lambda = 0.01,
                       scale = FALSE,
+                      itnmax = NULL
                        ...
                       )
   { 
@@ -139,7 +140,8 @@ function(           data.prep.obj = NULL,
                              margin.ipop = Margin.ipop,
                              sigf.ipop = Sigf.ipop,
                              bound.ipop = Bound.ipop,
-                             lambda = lambda
+                             lambda = lambda,
+                             itnmax = itnmax
                             )
       # get minimum
       if(verbose==TRUE){print(rgV.optim.1)}
