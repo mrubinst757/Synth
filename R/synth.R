@@ -228,8 +228,9 @@ function(           data.prep.obj = NULL,
 
 
     # last step: now recover solution.w
+    penalty <- diag(rep(lambda, ncol(X0)))
     V <- diag(x=as.numeric(solution.v),nrow=nvarsV,ncol=nvarsV)
-    H <- t(X0.scaled) %*% V %*% (X0.scaled) + lambda
+    H <- t(X0.scaled) %*% V %*% (X0.scaled) + penalty
     a <- X1.scaled
     c <- -1*c(t(a) %*% V %*% (X0.scaled) )
     A <- t(rep(1, length(c)))
