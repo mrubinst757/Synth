@@ -14,7 +14,7 @@ function(           data.prep.obj = NULL,
                       verbose = FALSE,
                       lambda = 0.01,
                       scale = FALSE,
-                      itnmax = NULL
+                      itnmax = NULL,
                        ...
                       )
   { 
