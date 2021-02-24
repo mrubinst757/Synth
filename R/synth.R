@@ -229,7 +229,7 @@ function(           data.prep.obj = NULL,
 
     # last step: now recover solution.w
     V <- diag(x=as.numeric(solution.v),nrow=nvarsV,ncol=nvarsV)
-    H <- t(X0.scaled) %*% V %*% (X0.scaled)
+    H <- t(X0.scaled) %*% V %*% (X0.scaled) + lambda
     a <- X1.scaled
     c <- -1*c(t(a) %*% V %*% (X0.scaled) )
     A <- t(rep(1, length(c)))
@@ -255,7 +255,7 @@ function(           data.prep.obj = NULL,
     names(solution.v) <- rownames(X0)
 
     loss.w <- t(X1.scaled - X0.scaled %*% solution.w) %*%
-      V %*% (X1.scaled - X0.scaled %*% solution.w) 
+      V %*% (X1.scaled - X0.scaled %*% solution.w) + lambda*(t(as.matrix(solution.w)) %*% as.matrix(solution.w))
 
     loss.v <-
       t(Z1 - Z0 %*% as.matrix(solution.w)) %*%
