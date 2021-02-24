@@ -26,7 +26,7 @@ function(
               nrow=length(variables.v),ncol=length(variables.v))
     
     # set up QP problem
-    penalty <- diag(rep(lambda, ncol(X0)))
+    penalty <- diag(rep(lambda, ncol(X0.scaled)))
     H <- t(X0.scaled) %*% V %*% (X0.scaled) + penalty
     a <- X1.scaled
     c <- -1*c(t(a) %*% V %*% (X0.scaled) )
