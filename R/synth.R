@@ -127,7 +127,7 @@ function(           data.prep.obj = NULL,
       if(sum(optimxmethod %in% c("All"))==1){ all.methods <- TRUE }
      rgV.optim.1 <- optimx(par=SV1, fn=fn.V,
                              gr=NULL, hess=NULL, 
-                             method=optimxmethod, itnmax=NULL, hessian=FALSE,
+                             method=optimxmethod, itnmax=itnmax, hessian=FALSE,
                              control=list(kkt=FALSE,
                                           starttests=FALSE,
                                           dowarn=FALSE,
@@ -140,9 +140,8 @@ function(           data.prep.obj = NULL,
                              margin.ipop = Margin.ipop,
                              sigf.ipop = Sigf.ipop,
                              bound.ipop = Bound.ipop,
-                             lambda = lambda,
-                             itnmax = itnmax
-                            )
+                             lambda = lambda
+                          )
       # get minimum
       if(verbose==TRUE){print(rgV.optim.1)}
       rgV.optim.1 <- collect.optimx(rgV.optim.1,"min")
@@ -169,7 +168,7 @@ function(           data.prep.obj = NULL,
   
       rgV.optim.2 <- optimx(par=SV2, fn=fn.V,
                              gr=NULL, hess=NULL, 
-                             method=optimxmethod, itnmax=NULL, hessian=FALSE,
+                             method=optimxmethod, itnmax=itnmax, hessian=FALSE,
                              control=list(kkt=FALSE,
                                           starttests=FALSE,
                                           dowarn=FALSE,
