@@ -8,7 +8,8 @@ function(
            margin.ipop = 0.0005,
            sigf.ipop = 5,
            bound.ipop = 10,
-           quadopt = "ipop"
+           quadopt = "ipop",
+           lambda = lambda
            )
 
   {
@@ -25,7 +26,7 @@ function(
               nrow=length(variables.v),ncol=length(variables.v))
     
     # set up QP problem
-    H <- t(X0.scaled) %*% V %*% (X0.scaled)
+    H <- t(X0.scaled) %*% V %*% (X0.scaled) + lambda
     a <- X1.scaled
     c <- -1*c(t(a) %*% V %*% (X0.scaled) )
     A <- t(rep(1, length(c)))
@@ -51,7 +52,7 @@ function(
             
     # compute losses
     loss.w <- as.numeric(t(X1.scaled - X0.scaled %*% solution.w) %*%
-      (V) %*% (X1.scaled - X0.scaled %*% solution.w))
+      (V) %*% (X1.scaled - X0.scaled %*% solution.w) + lambda*(t(solution.w) %*% solution.w)
 
     loss.v <- as.numeric(t(Z1 - Z0 %*% solution.w) %*%
       ( Z1 - Z0 %*% solution.w ))
