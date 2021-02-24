@@ -68,13 +68,13 @@ function(           data.prep.obj = NULL,
     scaled.matrix <-
       t(t(big.dataframe) %*% ( 1/(divisor) *
                               diag(rep(dim(big.dataframe)[1], 1)) ))
-    if (scaled == TRUE) {
+    if (scale == TRUE) {
         X0.scaled <- scaled.matrix[,c(1:(dim(X0)[2]))]
         if(is.vector(X0.scaled)==TRUE)
            {X0.scaled <- t(as.matrix(X0.scaled))}
         X1.scaled <- scaled.matrix[,dim(scaled.matrix)[2]]
      }
-    if (scaled == FALSE) {
+    if (scale == FALSE) {
       X0.scaled <- X0
       X1.scaled <- X1
      }
